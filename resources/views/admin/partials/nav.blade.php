@@ -10,7 +10,13 @@
     </a>
     <ul class="treeview-menu">
       <li class="{{ request()->is('admin/posts') ? 'active' : '' }}"><a href="{{ route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver todos los posts</a></li>
-      <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Crear un post</a></li>
+      <li>
+        @if (request()->is('admin/posts/*'))
+          <a href="{{ route('admin.posts.index', '#create') }}"><i class="fa fa-pencil"></i>Crear un post</a>
+        @else
+          <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Crear un post</a>
+        @endif
+      </li>
     </ul>
   </li>
 </ul>

@@ -188,12 +188,12 @@ desired effect
                 <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ auth()->user()->name }} - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ auth()->user()->name }} - {{ auth()->user()->roles->first()->name }}
+                  <small>Desde {{ auth()->user()->created_at->format('d/M/Y')}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+{{--               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -206,14 +206,18 @@ desired effect
                   </div>
                 </div>
                 <!-- /.row -->
-              </li>
+              </li> --}}
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
+{{--                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
+                </div> --}}
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <form action="{{ route('logout') }}" method="POST">
+                    {{ csrf_field() }}
+                    <button class="btn btn-default btn-flat btn-block">Cerrar Sesión</button>
+                    }
+                  </form>
                 </div>
               </li>
             </ul>
@@ -381,10 +385,11 @@ desired effect
 <script src="/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+@unless (request()->is('admin/posts/*'))
+  @include('admin.posts.create')
+@endunless
 @stack('scripts')
 <!-- AdminLTE App -->
 <script src="/adminlte/js/adminlte.min.js"></script>
-@include('admin.posts.create')
 </body>
 </html>

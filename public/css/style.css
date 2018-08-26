@@ -314,3 +314,7 @@ a.btn-bar{
 .carousel-inner .item img{
     width: 100% !important;
 }
+.container-flex .list-unstyled a{
+    color: inherit;
+    text-decoration: none;
+}

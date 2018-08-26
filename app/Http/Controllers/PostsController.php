@@ -9,6 +9,10 @@ class PostsController extends Controller
 {
     public function show(Post $post)
     {
-    	return view('posts.show', compact('post'));
+    	if ($post->isPublished() || auth()->check() ) // Acceso a post con fecha de publicacion y usuario autenticfiado
+    	{
+    		return view('posts.show', compact('post'));
+    	}
+    	abort(404);
     }
 }
