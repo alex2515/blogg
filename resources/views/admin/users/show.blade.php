@@ -27,7 +27,7 @@
 
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Editar</b></a>
+              <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary btn-block"><b>Editar</b></a>
             </div>
             <!-- /.box-body -->
           </div>
@@ -49,7 +49,7 @@
 							<hr>
 						@endunless
 					@empty
-					<small class="text-muted">No tiene ninguna publicación</small>
+						<small class="text-muted">No tiene ningún permiso</small>
 					@endforelse
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 				</div>
 				<div class="box-body">
 					@forelse($user->roles as $role)
-						<strong>{{ $role->title }}</strong>
+						<strong>{{ $role->name }}</strong>
 						@if ($role->permissions->count() )
 							<br>
 							<small class="text-muted">
@@ -90,7 +90,7 @@
 							<hr>
 						@endunless
 					@empty
-					<small class="text-muted">No tienes permisos adicionales</small>
+						<small class="text-muted">No tienes permisos adicionales</small>
 					@endforelse
 				</div>
 			</div>

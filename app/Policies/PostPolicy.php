@@ -9,6 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class PostPolicy
 {
     use HandlesAuthorization;
+    
     public function before($user)
     {
         if ( $user->hasRole('Admin'))

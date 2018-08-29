@@ -180,7 +180,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ auth()->user()->name }}</span>
+              {{-- <span class="hidden-xs">{{ auth()->user()->name }}</span> --}}
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -188,7 +188,7 @@ desired effect
                 <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ auth()->user()->name }} - {{ auth()->user()->roles->first()->name }}
+                  {{ auth()->user()->name }} - {{ auth()->user()->getRoleDisplayName() }}
                   <small>Desde {{ auth()->user()->created_at->format('d/M/Y')}}</small>
                 </p>
               </li>
@@ -216,7 +216,6 @@ desired effect
                   <form action="{{ route('logout') }}" method="POST">
                     {{ csrf_field() }}
                     <button class="btn btn-default btn-flat btn-block">Cerrar Sesión</button>
-                    }
                   </form>
                 </div>
               </li>

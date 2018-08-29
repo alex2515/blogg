@@ -10,15 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = [
-        'title', 'body', 'iframe', 'excerpt', 'published_at', 'category_id', 'user_id' ];
+    protected $fillable = ['title', 'body', 'iframe', 'excerpt', 'published_at', 'category_id', 'user_id' ];
     protected $dates = ['published_at'];
+    // protected $with = ['category', 'tags', 'photos', 'owner']; // Para pre cargar las relaciones
 
-    public function getRouteKeyName()
-    {
-        return 'url';
-    }
-
+    // Relationships
     public function category() //$post->category->name
     {
     	return $this->belongsTo(Category::class); // Un post pertenece a una categoría
@@ -35,9 +31,11 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    // Local Scope
     public function scopePublished($query)
     {
-        $query->whereNotNull('published_at')
+        $query->with(['category', 'tags', 'photos', 'owner'])
+            ->whereNotNull('published_at')
             ->where('published_at', '<=', Carbon::now() )
             ->latest('published_at');
     }
@@ -48,6 +46,16 @@ class Post extends Model
         }
         return $query->where('user_id', auth()->id());
     }
+    public function scopeByYearAndMonth($query)
+    {
+        return $query->selectRaw('year(published_at) year')
+                    ->selectRaw('month(published_at) month')
+                    ->selectRaw('monthname(published_at) monthname')
+                    ->selectRaw('count(*) posts')
+                    ->groupBy('year', 'month', 'monthname')
+                    ->orderBy('year', 'month', 'monthname');
+    }
+
     public function isPublished()
     {
         return ! is_null($this->published_at) && $this->published_at < today();
@@ -70,17 +78,12 @@ class Post extends Model
         $this->url = $url;
         $this->save();
     }
-    // public function setTitleAttribute($title)
-    // {
-    //     $this->attributes['title'] = $title;
-    //     $url = str_slug($title);
-    //     $duplicateUrlCount = Post::where('url', 'LIKE', "{$url}%")->count();
-    //     if ($duplicateUrlCount) 
-    //     {
-    //         $url .= "-" . ++$duplicateUrlCount;
-    //     }
-    //     $this->attributes['url']   = $url;
-    // }
+    // Accesor 
+    public function getRouteKeyName()
+    {
+        return 'url';
+    }
+    // Mutador
     public function setPublishedAtAttribute($published_at)
     {
         $this->attributes['published_at'] = $published_at ? Carbon::parse($published_at) : null;
@@ -101,6 +104,7 @@ class Post extends Model
     {
         parent::boot();
         static::deleting(function($post){
+            // Job::dispatch();
             $post->tags()->detach();
             $post->photos->each->delete();
         });
@@ -117,4 +121,15 @@ class Post extends Model
             return 'posts.text';
         endif;
     }
+    // public function setTitleAttribute($title)
+    // {
+    //     $this->attributes['title'] = $title;
+    //     $url = str_slug($title);
+    //     $duplicateUrlCount = Post::where('url', 'LIKE', "{$url}%")->count();
+    //     if ($duplicateUrlCount) 
+    //     {
+    //         $url .= "-" . ++$duplicateUrlCount;
+    //     }
+    //     $this->attributes['url']   = $url;
+    // }
 }
