@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="/css/responsive.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    @stack('styles')
 </head>
 <body>
 
@@ -21,13 +20,15 @@
         <div class="preload"></div>
         <header class="space-inter">
             <div class="container container-flex space-between">
-                <figure class="logo"><img src="/img/logo.png" alt=""></figure>
-                @include('partials.nav')
+                <figure class="logo">
+                    <img src="/img/logo.png" alt="">
+                </figure>
+                {{-- @include('navbar') --}}
+                <nav-bar></nav-bar>
             </div>
         </header>
-
-        <!-- Contenido -->
-        @yield('content')
+        
+        <router-view></router-view>
 
         <section class="footer">
             <footer>
@@ -56,7 +57,7 @@
         </section>
     </div>
 
-    <script>
+{{--     <script>
         (function (window, document) {
         var menu = document.getElementById('menu'),
                 WINDOW_CHANGE_EVENT = ('onorientationchange' in window) ? 'orientationchange':'resize';
@@ -91,7 +92,8 @@
         });
         window.addEventListener(WINDOW_CHANGE_EVENT, closeMenu);
         })(this, this.document);
-    </script>
+    </script> --}}
+
     <script src="{{ mix('js/app.js')}}"></script>
 
     @stack('scripts')

@@ -5,7 +5,7 @@
 
 @section('content')
 	<article class="post container">
-		 @include($post->viewType())
+		@include($post->viewType())
 	  	<div class="content-post">
 	  		@include('posts.header')
 	      	<h1>{{ $post->title }}.</h1>

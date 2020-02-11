@@ -130,7 +130,7 @@
 	padding: 20px 0;
 }
 .active{
-	color: #bdbdbd;
+	color: #bdbdbd !important;
 	border-bottom: 0 !important;
 }
 .pagination-active{

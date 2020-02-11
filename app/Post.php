@@ -14,6 +14,8 @@ class Post extends Model
     protected $dates = ['published_at'];
     // protected $with = ['category', 'tags', 'photos', 'owner']; // Para pre cargar las relaciones
 
+    protected $appends = ['published_date'];
+
     // Relationships
     public function category() //$post->category->name
     {
@@ -132,4 +134,10 @@ class Post extends Model
     //     }
     //     $this->attributes['url']   = $url;
     // }
+
+    // Accesor
+    public function getPublishedDateAttribute()
+    {
+        return optional($this->published_at)->format('M d');
+    }
 }

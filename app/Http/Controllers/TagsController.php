@@ -11,6 +11,9 @@ class TagsController extends Controller
     {
     	$title = "Publicaciones de la etiqueta '$tag->name'";
     	$posts = $tag->posts()->published()->paginate();
+    	if (request()->wantsJson()) {
+    		return $posts;
+    	}
     	return view('pages.home', compact('posts', 'title'));
     }
 }

@@ -1,0 +1,22 @@
+<template>
+	<posts-list :posts="posts"></posts-list>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				posts: []
+			}
+		},
+		mounted() {
+			axios.get(`/api/posts`)
+				.then(res=> {
+					this.posts = res.data.data
+					console.log(this.posts)
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		}
+	}
+</script>
