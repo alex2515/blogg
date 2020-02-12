@@ -31,7 +31,7 @@ class PagesController extends Controller
 		// 			->get();
 		// $posts = Post::published()->paginate();
 
-		$posts = $query->paginate();
+		$posts = $query->paginate(1);
 
 		if (request()->wantsJson()){
 			return $posts;
@@ -44,13 +44,19 @@ class PagesController extends Controller
 	}
 	public function archive()
 	{
-		$archive = Post::byYearAndMonth()->get();
-		return view('pages.archive', [
-			'authors' 		=> User::latest()->take(4)->get(),
-			'categories' 	=> Category::take(7)->get(),
-			'posts' 		=> Post::latest('published_at')->take(5)->get(),
-			'archive'		=> $archive
-		]);
+		// $archive = Post::byYearAndMonth()->get();
+		$data = [
+			'authors' => User::latest()->take(4)->get(),
+			'categories' => Category::take(7)->get(),
+			'posts' => Post::latest('published_at')->take(5)->get(),
+			'archive' => Post::byYearAndMonth()->get()
+		];
+
+		if (request()->wantsJson()) {
+			return $data;
+		}
+		
+		return view('pages.archive', $data);
 	}
 	public function contact()
 	{
