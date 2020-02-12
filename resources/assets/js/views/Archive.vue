@@ -59,7 +59,6 @@
 		mounted() {
 			axios.get(`/api/archivo`)
 				.then(res => {
-					console.log(res)
 					this.authors = res.data.authors;
 					this.categories = res.data.categories;
 					this.posts = res.data.posts;

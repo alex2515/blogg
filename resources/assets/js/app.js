@@ -22,6 +22,8 @@ Vue.component('posts-list-item', require('./components/PostsListItem'));
 Vue.component('category-link', require('./components/CategoryLink'));
 Vue.component('post-link', require('./components/PostLink'));
 Vue.component('disqus-comments', require('./components/DisqusComments'));
+Vue.component('paginator', require('./components/Paginator'));
+Vue.component('pagination-links', require('./components/PaginationLinks'));
 
 const app = new Vue({
 	router,

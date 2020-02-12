@@ -4,10 +4,14 @@
 	        <!-- <h3>{{ $title }}</h3> -->
 	    <!-- @endif -->
 	    <!-- @forelse($posts as $post) -->
-	    <posts-list-item v-for="post in posts" :post="post" :key="post.id"></posts-list-item>
+	    <posts-list-item
+	    	v-for="post in items"
+	    	:post="post"
+	    	:key="post.id"
+	    />
 
 	    <!-- @empty -->
-	        <article class="post" v-if="! posts.length">
+	        <article class="post" v-if="! items.length">
 	            <div class="content-post">
 	                <h1>No hay publicaciones todavía</h1>
 	            </div>
@@ -18,6 +22,6 @@
 </template>
 <script>
 	export default {
-		props: ['posts']
+		props: ['items']
 	}
 </script>
