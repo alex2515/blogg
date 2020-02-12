@@ -35,13 +35,13 @@
             <td>{{ $post->title }}</td>
             <td>{{ $post->excerpt }}</td>
             <td>
-              <a href="{{ route('posts.show', $post) }}" target="_blank" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
+              {{-- <a href="{{ route('admin.posts.show', $post) }}" target="_blank" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a> --}}
               <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
               <form method="POST" action="{{ route('admin.posts.destroy', $post ) }}" style="display: inline;">
                 {{ method_field('DELETE') }} {{ csrf_field()  }}
                 <button class="btn btn-xs btn-danger" onclick="return confirm('¿Estas seguro de querer eliminar esta publicación?')" ><i class="fa fa-times"></i></button>
               </form>
-              
+
             </td>
           </tr>
           @endforeach

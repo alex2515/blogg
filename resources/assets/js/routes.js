@@ -48,6 +48,10 @@ export default new Router({
 			component: require('./views/404')
 		}
 	],
-	linkExactActiveClass: 'active'
+	mode: 'history',
+	linkExactActiveClass: 'active',
+	scrollBehavior() {
+		return {x:0, y:0};
+	}
 	// linkActiveClass: 'active'
 });
