@@ -9,6 +9,7 @@ require('./bootstrap');
 import Vue from 'vue';
 import router from './routes';
 
+// require('vue2-animate/dist/vue2-animate.min.css')
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

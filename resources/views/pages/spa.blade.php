@@ -13,6 +13,25 @@
     <link rel="stylesheet" href="/css/responsive.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <style>
+        .fade-enter-active, .fade-leave-active {
+          transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+          opacity: 0;
+        }
+        .slide-fade-enter-active {
+          transition: all .3s ease;
+        }
+        .slide-fade-leave-active {
+          transition: all .3s cubic-bezier(.17, .67, .83, .67);
+        }
+        .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active below version 2.1.8 */ {
+          transform: translateY(800px);
+          opacity: 0;
+        }
+    </style>
 </head>
 <body>
 
@@ -27,8 +46,12 @@
                 <nav-bar></nav-bar>
             </div>
         </header>
-        
-        <router-view :key="$route.fullPath"></router-view>
+
+        <div style="min-height: 100vh">
+            <transition name="slide-fade" mode="out-in">
+                <router-view :key="$route.fullPath"></router-view>
+            </transition>
+        </div>
 
         <section class="footer">
             <footer>
